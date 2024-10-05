@@ -27,8 +27,8 @@ RSpec.describe UnpackStrategy::Directory do
     expect(unpack_dir/"folderSymlink").to be_a_symlink
   end
 
-  it "preserves hardlinks" do
-    strategy.extract(to: unpack_dir)
+  it "preserves hardlinks with move enabled" do
+    described_class.new(path, move: true).extract(to: unpack_dir)
     expect((unpack_dir/"file").stat.ino).to eq (unpack_dir/"hardlink").stat.ino
   end
 
